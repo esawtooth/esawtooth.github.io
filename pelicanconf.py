@@ -4,7 +4,7 @@ from __future__ import unicode_literals
 
 AUTHOR = 'Rohit Jain'
 SITENAME = 'Arbit Musings'
-SITEURL = ''
+SITEURL = 'esawtooth.github.io'
 
 PATH = 'content'
 
