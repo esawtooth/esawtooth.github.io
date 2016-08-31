@@ -1,7 +1,7 @@
-Title: Quicksort and Hoare Partitioning
+Title: Hoare Partitioning and Pivot Selection
 Slug: qsort-hoare-partitioning
 Date: 2015-09-06 20:00
 Category: algo
 Author: Rohit Jain
-Summary: A quick review of QSort and Hoare Partitioning while reversing the order of the partitioning loop.
+Summary: A quick review of QSort and Hoare Partitioning while reversing the order of the partitioning loop. While Hoare Partition has a *mostly* symmetric body regarding its endpoints, reversing the order ot the loop requires some thought.
 
