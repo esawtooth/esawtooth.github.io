@@ -22,8 +22,7 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('about', '#'),
-         ('contact', '#'),
+LINKS = (('contact', '#'),
          ('photoblog', '#'),)
 
 # Social widget
