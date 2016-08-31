@@ -1,10 +1,10 @@
 Title: First Steps
 Slug: first-steps
 Date: 2013-11-30 14:55
-Category: tech general
+Category: tech
 Tags: tech general
 Author: Rohit Jain
-Summary: Blog v1
+Summary: Initial Commit
 
 
 I suppose it was long past time that I started blogging. I love to
