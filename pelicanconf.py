@@ -3,9 +3,10 @@
 from __future__ import unicode_literals
 
 AUTHOR = 'Rohit Jain'
-SITENAME = 'Arbit Musings'
+SITENAME = 'rohitja.in'
 SITEURL = 'http://rohitja.in'
 SITELOGO = 'https://graph.facebook.com/738607928/picture?type=large'
+SITETITLE = SITENAME
 
 PATH = 'content'
 ROBOTS = 'index, follow'
