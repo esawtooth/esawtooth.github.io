@@ -6,7 +6,7 @@ dd { margin-left: 23px }
 body  {
 	background: url(../images/background.jpg);
 	color: #293331;
-	font: 16px Georgia, "Times New Roman", Times, serif;
+	font: 14px Georgia, "Times New Roman", Times, serif;
 	text-align: center;
 }
 
@@ -57,7 +57,7 @@ ol {
 	background: url(../images/spill.gif) no-repeat top right;
 	margin: 0 auto;
 	text-align: left;
-	width: 780px;
+	width: 980px;
 } 
 
 #header { 
