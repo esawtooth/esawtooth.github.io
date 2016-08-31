@@ -4,7 +4,6 @@ Date: 2013-11-30 19:55
 Category: tech
 Tags: tech
 Author: Rohit Jain
-Summary: A small comparison of vim and emacs
 
 I grew up as a programmer on vim. In my first week at college, I was
 treated to an interesting discourse on the virtues of vim, emacs and

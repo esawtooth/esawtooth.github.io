@@ -4,7 +4,6 @@ Date: 2015-12-01 11:44
 Category: blog tech
 Tags: blog tech
 Author: Rohit Jain
-Summary: A Blog Makeover
 
 This one is just a quick update on my latest blog makeover. So this
 business started when I discovered that a domain name that I've been
