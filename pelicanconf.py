@@ -20,14 +20,16 @@ AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = None
 
 # Blogroll
-LINKS = (('Pelican', 'http://getpelican.com/'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (('about', '#'),
+         ('contact', '#'),
+         ('photolog', '#'),)
 
 # Social widget
 SOCIAL = (('github', 'http://github.com/esawtooth'),
-          ('facebook', 'http://www.facebook.com/rohit7jain'),)
+          ('facebook', 'http://www.facebook.com/rohit7jain'),
+	  ('soundcloud', 'https://soundcloud.com/esawtooth'),
+	  ('envelope-o', 'mailto://mail@rohitja.in'),
+	  ('linkedin','https://www.linkedin.com/in/rohit7jain'),)
 
 DEFAULT_PAGINATION = 10
 
