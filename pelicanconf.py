@@ -24,7 +24,7 @@ AUTHOR_FEED_RSS = None
 # Blogroll
 LINKS = (('about', '#'),
          ('contact', '#'),
-         ('photolog', '#'),)
+         ('photoblog', '#'),)
 
 # Social widget
 SOCIAL = (('github', 'http://github.com/esawtooth'),
