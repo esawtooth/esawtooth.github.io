@@ -21,7 +21,6 @@ script:
 - git checkout -b master origin/master
 - git clean -fd
 - git reset --hard HEAD
-- git pull origin master
 - git checkout src
 - ghp-import output -b master
 - git checkout master
