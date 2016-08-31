@@ -10,7 +10,7 @@ import sys
 sys.path.append(os.curdir)
 from pelicanconf import *
 
-SITEURL = 'http://esawtooth.github.io'
+SITEURL = 'http://rohitja.in'
 RELATIVE_URLS = False
 
 FEED_ALL_ATOM = 'feeds/all.atom.xml'
@@ -23,4 +23,4 @@ EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 # Following items are often useful when publishing
 
 #DISQUS_SITENAME = ""
-#GOOGLE_ANALYTICS = ""
+#GOOGLE_ANALYTICS = "UA-46114608-2"
