@@ -8,7 +8,7 @@ SITEURL = 'http://rohitja.in'
 SITELOGO = 'https://graph.facebook.com/738607928/picture?type=large'
 
 PATH = 'content'
-
+ROBOTS = 'index, follow'
 TIMEZONE = 'Asia/Calcutta'
 
 DEFAULT_LANG = 'en'
