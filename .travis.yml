@@ -1,0 +1,8 @@
+language: python
+branches:
+    only:
+    - src
+install: "pip install -r requirements.txt"
+script:
+- ghp-import output -b master
+- git push origin master
