@@ -17,8 +17,8 @@ FEED_ALL_ATOM = 'feeds/all.atom.xml'
 CATEGORY_FEED_ATOM = 'feeds/%s.atom.xml'
 
 DELETE_OUTPUT_DIRECTORY = True
-STATIC_PATHS = ['images', 'extra/CNAME']
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
+STATIC_PATHS = ['images', 'extra/CNAME', 'extra/.travis.yml']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},{'extra/.travis.yml': {'path': '.travis.yml'}}, }
 
 # Following items are often useful when publishing
 
