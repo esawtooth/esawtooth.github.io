@@ -4,5 +4,6 @@ branches:
     - src
 install: "pip install -r requirements.txt"
 script:
+- pelican content -s publishconf.py -t pelican-themes/Flex
 - ghp-import output -b master
 - git push origin master
