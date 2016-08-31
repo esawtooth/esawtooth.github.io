@@ -5,3 +5,4 @@ Category: algo
 Author: Rohit Jain
 Summary: A quick review of QSort and Hoare Partitioning while reversing the order of the partitioning loop. While Hoare Partition has a *mostly* symmetric body regarding its endpoints, reversing the order ot the loop requires some thought.
 
+
