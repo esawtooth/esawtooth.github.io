@@ -976,7 +976,7 @@ h6:hover .anchor-link {
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;h2 id="Hoare-Partitioning-and-Pivot-Selection"&gt;Hoare Partitioning and Pivot Selection&lt;a class="anchor-link" href="#Hoare-Partitioning-and-Pivot-Selection"&gt;¶&lt;/a&gt;&lt;/h2&gt;&lt;p&gt;Quicksort is a remarkably flexible algorithm with several
+&lt;p&gt;Quicksort is a remarkably flexible algorithm with several
 variations. Here, I wanted to write about the Hoare partitioning method,
 in particular, about the special choice of its pivot as the leftmost
 element. First, lets quickly write down the partitioning algorithm from
