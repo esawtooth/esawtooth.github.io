@@ -19,7 +19,7 @@ script:
 - git add .
 - git commit -m "travis regen merge"
 - git push origin src
-- git checkout master
+- git checkout -b --track master origin/master
 - git clean -fd
 - git reset --hard HEAD
 - git pull origin master
