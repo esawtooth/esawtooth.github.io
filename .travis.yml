@@ -12,10 +12,16 @@ script:
 - git config --global user.name "Travis for Rohit Jain"
 - git config credential.helper "store --file=.git/credentials"
 - echo "https://${GH_TOKEN}:@github.com" > .git/credentials
-- git pull origin master
+- git checkout src
 - pelican content -s publishconf.py -t pelican-themes/Flex
 - git add .
 - git commit -m "travis regen merge"
 - git push origin src
+- git checkout master
+- git clean -fd
+- git reset --hard HEAD
+- git pull origin master
+- git checkout src
 - ghp-import output -b master
+- git checkout master
 - git push origin master
