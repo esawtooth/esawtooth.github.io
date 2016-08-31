@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>Arbit Musings</title><link href="http://esawtooth.github.io/" rel="alternate"></link><link href="http://esawtooth.github.io/feeds/tech.atom.xml" rel="self"></link><id>http://esawtooth.github.io/</id><updated>2013-11-30T19:55:00+05:30</updated><entry><title>From vim to emacs</title><link href="http://esawtooth.github.io/vim-emacs.html" rel="alternate"></link><published>2013-11-30T19:55:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:esawtooth.github.io,2013-11-30:vim-emacs.html</id><summary type="html">&lt;p&gt;I grew up as a programmer on vim. In my first week at college, I was
+<feed xmlns="http://www.w3.org/2005/Atom"><title>rohitja.in</title><link href="http://rohitja.in/" rel="alternate"></link><link href="http://rohitja.in/feeds/tech.atom.xml" rel="self"></link><id>http://rohitja.in/</id><updated>2013-11-30T19:55:00+05:30</updated><entry><title>From vim to emacs</title><link href="http://rohitja.in/vim-emacs.html" rel="alternate"></link><published>2013-11-30T19:55:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2013-11-30:vim-emacs.html</id><summary type="html">&lt;p&gt;I grew up as a programmer on vim. In my first week at college, I was
 treated to an interesting discourse on the virtues of vim, emacs and
 their ilk from Prof. Suban which first lead me to appreciate them
 better. Vim is simple, and very quickly becomes a part of the
@@ -35,7 +35,7 @@ does precisely what it is asked to do more often than not. Another
 interesting facet of emacs is that it can be used as a complete and
 flexible development environment and handle duties as my terminal of
 choice, windowing manager, ssh/grep replacement, magit version control,
-org mode goodness and a whole lot more.&lt;/p&gt;</summary><category term="tech"></category></entry><entry><title>First Steps</title><link href="http://esawtooth.github.io/first-steps.html" rel="alternate"></link><published>2013-11-30T14:55:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:esawtooth.github.io,2013-11-30:first-steps.html</id><summary type="html">&lt;p&gt;I suppose it was long past time that I started blogging. I love to
+org mode goodness and a whole lot more.&lt;/p&gt;</summary><category term="tech"></category></entry><entry><title>First Steps</title><link href="http://rohitja.in/first-steps.html" rel="alternate"></link><published>2013-11-30T14:55:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2013-11-30:first-steps.html</id><summary type="html">&lt;p&gt;I suppose it was long past time that I started blogging. I love to
 write. I also love technology and the ecosystem that surrounds
 it. However, despite the presence of both of those two passions, I could
 never quite see the charm in creating a blog. A fair bit of that, in
