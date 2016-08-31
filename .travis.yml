@@ -18,7 +18,6 @@ script:
 - pelican content -s publishconf.py -t pelican-themes/Flex
 - git add .
 - git commit -m "travis regen merge"
-- git push origin src
 - git checkout -b --track master origin/master
 - git clean -fd
 - git reset --hard HEAD
