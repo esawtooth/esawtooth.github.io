@@ -1,0 +1,21 @@
+language: python
+cache: pip
+branches:
+  only:
+  - src
+install: pip install -r requirements.txt
+env:
+  global:
+    secure: FnJj33rSpUK6eBDleF7UqpPpNxo/MsAwTsG9U8ZfHAIzxCGtU1ASUGp1nldjhKG76Z5pcAI9ZsCvDOuH52h0RZoJJDvGddsHnmnGhp1gRYuuQqolfdvYEY9HvW7+/T4ycgXJwHlq4C7+q4PXN2IEptuBIcSx5bpv8b2ChCkuWSJA37C6wE9grVw9StrOYkl6oavfAr0R67+PkvtZLcbTG2PK64ATbJ2eOTdlXSb6F0JtKNYDNDarhccjJE0t+b4UJIbKquvHT2XIMeHijYNpwxl2LLNDkc74bYrJQqVDcjsbrRhFKhDrzVBXyc3FRAhArxy+lIcYqydRYGXTQnZzRB5Won8LND/BbQfpG0onWnCe6/EfuxjYBuNKvwpPNSf4rdeCmlwr+B5o1g+reuFLM3vN5jGJRyIU/rX14oliktEJBnf/J3WiABnSzyIcijoxnqBgKYIqqQZs+0F9WquE7Iiub/RhL+VCECIOfwx9b+hQqO0UgYrX1O8krjsGTRZT1talNazvM7t4p66v0y4XHJnHzs2ghRalfbFu1yGsxxR3g937qxC8pYmbP8J6EC/9IvDdW4ZeZBJWUz9OMkXEH6KtvZ2hOPCH1oQwpKLamvEpREeQODKMKRuSLBv7ZkmMo5nOdNbnBPnsRZa+aYitLXLidVpbcLWp0KKoamUptNM=
+script:
+- git config --global user.email "mail@rohitja.in"
+- git config --global user.name "Travis for Rohit Jain"
+- git config credential.helper "store --file=.git/credentials"
+- echo "https://${GH_TOKEN}:@github.com" > .git/credentials
+- git pull origin master
+- pelican content -s publishconf.py -t pelican-themes/Flex
+- git add .
+- git commit -m "travis regen merge"
+- git push origin src
+- ghp-import output -b master
+- git push origin master
