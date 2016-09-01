@@ -1766,19 +1766,19 @@ $$100\frac{\sigma_{Hoare}}{\lambda + \sigma_{hoare}}$$</p>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [58]:</div>
+<div class="prompt input_prompt">In [1]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Let sigma_hoare be 1. Hence, sigma_lomuto = 3, and </span>
-<span class="n">lmbda</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mf">2.44</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">2.44</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
-<span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">lmbda</span><span class="o">+</span><span class="mi">3</span><span class="p">)),</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">lmbda</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">λ</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span> <span class="o">-</span> <span class="mf">2.44</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mf">2.44</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="p">(</span><span class="n">λ</span><span class="o">+</span><span class="mi">3</span><span class="p">)),</span> <span class="mi">100</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">λ</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="output_wrapper">
 <div class="output">
-<div class="output_area"><div class="prompt output_prompt">Out[58]:</div>
+<div class="output_area"><div class="prompt output_prompt">Out[1]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>(88.52459016393442, 72.0)</pre>
 </div>
@@ -1791,9 +1791,20 @@ $$100\frac{\sigma_{Hoare}}{\lambda + \sigma_{hoare}}$$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As expected, Lomuto Partitioning is spending more time in swapping elements in comparison to Hoare Partitioning.</p>
+<p>As expected, Lomuto Partitioning is spending more time in swapping elements in comparison to Hoare Partitioning. What this calculation tells us is that in either case, most of the time in both algorithms is spent in swapping. Comparison operations on the other hand are not as significant.</p>
 <p>These are partitioning schemes involving only a single pivot. Faster variants involving two pivots have been suggested by Sedgewick and Yaroslavskiy. Sebastian's paper <a href="https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/3463">here</a> is a very interesting read and provides a very good perspective on the performance of the various partitioning schemes.</p>
 <p>As an aside, the default sort used in python and java is <a href="http://svn.python.org/projects/python/trunk/Objects/listsort.txt">TimSort</a>, which is a mergesort variant.</p>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In [ ]:</div>
+<div class="inner_cell">
+<div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+</div>
 </div>
 </div>
 </div>
