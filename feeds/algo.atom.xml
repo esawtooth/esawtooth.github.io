@@ -1394,7 +1394,7 @@ $$\frac{T_{Lomuto}}{T_{Hoare}} = \tau = \frac{\alpha}{\beta}$$&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;Well, clearly Lomuto is more &lt;em&gt;linear&lt;/em&gt;. The intercept implies that Hoare partitioning is faster even at $N=0$ which is amusing. We can see that:&lt;/p&gt;
+&lt;p&gt;Well, both are &lt;em&gt;very&lt;/em&gt; linear, and the standard error is pretty low. The intercept implies that Hoare partitioning is faster even at $N=0$ which is amusing. Fortunately, the Y-intercepts are close enough to zero that we can neglect them for large n. We can see that:&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
