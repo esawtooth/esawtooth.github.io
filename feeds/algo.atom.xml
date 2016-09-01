@@ -1440,7 +1440,7 @@ $$\frac{T_{Lomuto}}{T_{Hoare}} = \tau = \frac{\alpha}{\beta}$$&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class="inner_cell"&gt;
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
-&lt;p&gt;So Lomuto Partitioning is 2.44 times slower than Hoare Partitioning and the latter is a 59% improvement on the performance of the former. A quick look at the graph for small values of N:&lt;/p&gt;
+&lt;p&gt;So Lomuto Partitioning is 2.44 times slower than Hoare Partitioning and that the latter is a 59% improvement on the performance of the former. A quick look at the graph for small values of N:&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1677,7 +1677,7 @@ ERERya58as4SEZEsUxAREZG0KYiIiEjaFERERCRtCiIiIpI2BREREUmbgoiIiKRNQURERNL2//A+
 &lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
 &lt;p&gt;For a brilliant theoretical exposition on the differences in speeds of the two algorithms, please refer to Sebastian Wild's &lt;a href="http://cs.stackexchange.com/a/11550"&gt;StackExchange answer&lt;/a&gt;. To summarize, the comparisons in case of both the algorithms are the same, however the number of swaps differ. It is expected that for swaps ($\sigma$):&lt;/p&gt;
 $$\sigma_{Lomuto} = \frac{n}{2} - \frac{1}{2}$$$$\sigma_{hoare} = \frac{n}{6} - \frac{1}{3}$$&lt;p&gt;There is a gap here. Going by the above formulae, Hoare Partitioning should have been about 3 times faster, if one goes by the number of swaps alone. It is a bit slower than that in practice. Clearly, the amount being spent on swaps is a fraction (granted, large) of the amount of time being spent on the sorting.&lt;/p&gt;
-&lt;p&gt;Let us assume that beyond the swaps, there is a constant overhead $\lambda$ in both algorithms. Let $\chi$ be $2.44$ as discovered empirically earlier. Hence,&lt;/p&gt;
+&lt;p&gt;Let us assume that beyond the swaps, there is an extra overhead factor $\lambda$ in both algorithms. Let $\chi$ be $2.44$ as discovered empirically earlier. Hence,&lt;/p&gt;
 $$\frac{\sigma_{Lomuto}}{\sigma_{Hoare}} = 3 \land \frac{\sigma_{Lomuto} + \lambda}{\sigma_{Hoare} + \lambda} = \chi$$$$\Rightarrow \frac{3\sigma_{Hoare} + \lambda}{\sigma_{Hoare} + \lambda} = \chi$$$$\Rightarrow \lambda = \frac{3 - \chi}{\chi - 1}\sigma_{Hoare}$$&lt;p&gt;The percentage of time spent swapping in Lomuto Partitioning is:
 $$100\frac{\sigma_{Lomuto}}{\lambda + \sigma_{Lomuto}}$$ 
 Similarly, for Hoare Partitioning,
