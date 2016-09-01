@@ -1,5 +1,1752 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>rohitja.in</title><link href="http://rohitja.in/" rel="alternate"></link><link href="http://rohitja.in/feeds/algo.atom.xml" rel="self"></link><id>http://rohitja.in/</id><updated>2015-09-06T20:00:00+05:30</updated><entry><title>Hoare Partitioning and Pivot Selection</title><link href="http://rohitja.in/qsort-hoare-partitioning.html" rel="alternate"></link><published>2015-09-06T20:00:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2015-09-06:qsort-hoare-partitioning.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>rohitja.in</title><link href="http://rohitja.in/" rel="alternate"></link><link href="http://rohitja.in/feeds/algo.atom.xml" rel="self"></link><id>http://rohitja.in/</id><updated>2016-09-01T20:00:00+05:30</updated><entry><title>A comparison of Lomuto and Hoare Partitioning Schemes</title><link href="http://rohitja.in/lomuto-hoare-partitioning.html" rel="alternate"></link><published>2016-09-01T20:00:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2016-09-01:lomuto-hoare-partitioning.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+*
+* IPython notebook
+*
+*/
+/* CSS font colors for translated ANSI colors. */
+.ansibold {
+  font-weight: bold;
+}
+/* use dark versions for foreground, to improve visibility */
+.ansiblack {
+  color: black;
+}
+.ansired {
+  color: darkred;
+}
+.ansigreen {
+  color: darkgreen;
+}
+.ansiyellow {
+  color: #c4a000;
+}
+.ansiblue {
+  color: darkblue;
+}
+.ansipurple {
+  color: darkviolet;
+}
+.ansicyan {
+  color: steelblue;
+}
+.ansigray {
+  color: gray;
+}
+/* and light for background, for the same reason */
+.ansibgblack {
+  background-color: black;
+}
+.ansibgred {
+  background-color: red;
+}
+.ansibggreen {
+  background-color: green;
+}
+.ansibgyellow {
+  background-color: yellow;
+}
+.ansibgblue {
+  background-color: blue;
+}
+.ansibgpurple {
+  background-color: magenta;
+}
+.ansibgcyan {
+  background-color: cyan;
+}
+.ansibggray {
+  background-color: gray;
+}
+div.cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  border-radius: 2px;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  border-width: 1px;
+  border-style: solid;
+  border-color: transparent;
+  width: 100%;
+  padding: 5px;
+  /* This acts as a spacer between cells, that is outside the border */
+  margin: 0px;
+  outline: none;
+  border-left-width: 1px;
+  padding-left: 5px;
+  background: linear-gradient(to right, transparent -40px, transparent 1px, transparent 1px, transparent 100%);
+}
+div.cell.jupyter-soft-selected {
+  border-left-color: #90CAF9;
+  border-left-color: #E3F2FD;
+  border-left-width: 1px;
+  padding-left: 5px;
+  border-right-color: #E3F2FD;
+  border-right-width: 1px;
+  background: #E3F2FD;
+}
+@media print {
+  div.cell.jupyter-soft-selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected {
+  border-color: #ababab;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  div.cell.selected {
+    border-color: transparent;
+  }
+}
+div.cell.selected.jupyter-soft-selected {
+  border-left-width: 0;
+  padding-left: 6px;
+  background: linear-gradient(to right, #42A5F5 -40px, #42A5F5 7px, #E3F2FD 7px, #E3F2FD 100%);
+}
+.edit_mode div.cell.selected {
+  border-color: #66BB6A;
+  border-left-width: 0px;
+  padding-left: 6px;
+  background: linear-gradient(to right, #66BB6A -40px, #66BB6A 5px, transparent 5px, transparent 100%);
+}
+@media print {
+  .edit_mode div.cell.selected {
+    border-color: transparent;
+  }
+}
+.prompt {
+  /* This needs to be wide enough for 3 digit prompt numbers: In[100]: */
+  min-width: 14ex;
+  /* This padding is tuned to match the padding on the CodeMirror editor. */
+  padding: 0.4em;
+  margin: 0px;
+  font-family: monospace;
+  text-align: right;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+  /* Don't highlight prompt number selection */
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  /* Use default cursor */
+  cursor: default;
+}
+@media (max-width: 540px) {
+  .prompt {
+    text-align: left;
+  }
+}
+div.inner_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+}
+@-moz-document url-prefix() {
+  div.inner_cell {
+    overflow-x: hidden;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_area {
+  border: 1px solid #cfcfcf;
+  border-radius: 2px;
+  background: #f7f7f7;
+  line-height: 1.21429em;
+}
+/* This is needed so that empty prompt areas can collapse to zero height when there
+   is no content in the output_subarea and the prompt. The main purpose of this is
+   to make sure that empty JavaScript output_subareas have no height. */
+div.prompt:empty {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+div.unrecognized_cell {
+  padding: 5px 5px 5px 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.unrecognized_cell .inner_cell {
+  border-radius: 2px;
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+  border: 1px solid #cfcfcf;
+  background: #eaeaea;
+}
+div.unrecognized_cell .inner_cell a {
+  color: inherit;
+  text-decoration: none;
+}
+div.unrecognized_cell .inner_cell a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+@media (max-width: 540px) {
+  div.unrecognized_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.code_cell {
+  /* avoid page breaking on code cells when printing */
+}
+@media print {
+  div.code_cell {
+    page-break-inside: avoid;
+  }
+}
+/* any special styling for code cells that are currently running goes here */
+div.input {
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.input {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+/* input_area and input_prompt must match in top border and margin for alignment */
+div.input_prompt {
+  color: #303F9F;
+  border-top: 1px solid transparent;
+}
+div.input_area &gt; div.highlight {
+  margin: 0.4em;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+div.input_area &gt; div.highlight &gt; pre {
+  margin: 0px;
+  border: none;
+  padding: 0px;
+  background-color: transparent;
+}
+/* The following gets added to the &lt;head&gt; if it is detected that the user has a
+ * monospace font with inconsistent normal/bold/italic height.  See
+ * notebookmain.js.  Such fonts will have keywords vertically offset with
+ * respect to the rest of the text.  The user should select a better font.
+ * See: https://github.com/ipython/ipython/issues/1503
+ *
+ * .CodeMirror span {
+ *      vertical-align: bottom;
+ * }
+ */
+.CodeMirror {
+  line-height: 1.21429em;
+  /* Changed from 1em to our global default */
+  font-size: 14px;
+  height: auto;
+  /* Changed to auto to autogrow */
+  background: none;
+  /* Changed from white to allow our bg to show through */
+}
+.CodeMirror-scroll {
+  /*  The CodeMirror docs are a bit fuzzy on if overflow-y should be hidden or visible.*/
+  /*  We have found that if it is visible, vertical scrollbars appear with font size changes.*/
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+.CodeMirror-lines {
+  /* In CM2, this used to be 0.4em, but in CM3 it went to 4px. We need the em value because */
+  /* we have set a different line-height and want this to scale with that. */
+  padding: 0.4em;
+}
+.CodeMirror-linenumber {
+  padding: 0 8px 0 4px;
+}
+.CodeMirror-gutters {
+  border-bottom-left-radius: 2px;
+  border-top-left-radius: 2px;
+}
+.CodeMirror pre {
+  /* In CM3 this went to 4px from 0 in CM2. We need the 0 value because of how we size */
+  /* .CodeMirror-lines */
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+}
+/*
+
+Original style from softwaremaniacs.org (c) Ivan Sagalaev &lt;Maniac@SoftwareManiacs.Org&gt;
+Adapted from GitHub theme
+
+*/
+.highlight-base {
+  color: #000;
+}
+.highlight-variable {
+  color: #000;
+}
+.highlight-variable-2 {
+  color: #1a1a1a;
+}
+.highlight-variable-3 {
+  color: #333333;
+}
+.highlight-string {
+  color: #BA2121;
+}
+.highlight-comment {
+  color: #408080;
+  font-style: italic;
+}
+.highlight-number {
+  color: #080;
+}
+.highlight-atom {
+  color: #88F;
+}
+.highlight-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.highlight-builtin {
+  color: #008000;
+}
+.highlight-error {
+  color: #f00;
+}
+.highlight-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.highlight-meta {
+  color: #AA22FF;
+}
+/* previously not defined, copying from default codemirror */
+.highlight-def {
+  color: #00f;
+}
+.highlight-string-2 {
+  color: #f50;
+}
+.highlight-qualifier {
+  color: #555;
+}
+.highlight-bracket {
+  color: #997;
+}
+.highlight-tag {
+  color: #170;
+}
+.highlight-attribute {
+  color: #00c;
+}
+.highlight-header {
+  color: blue;
+}
+.highlight-quote {
+  color: #090;
+}
+.highlight-link {
+  color: #00c;
+}
+/* apply the same style to codemirror */
+.cm-s-ipython span.cm-keyword {
+  color: #008000;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-atom {
+  color: #88F;
+}
+.cm-s-ipython span.cm-number {
+  color: #080;
+}
+.cm-s-ipython span.cm-def {
+  color: #00f;
+}
+.cm-s-ipython span.cm-variable {
+  color: #000;
+}
+.cm-s-ipython span.cm-operator {
+  color: #AA22FF;
+  font-weight: bold;
+}
+.cm-s-ipython span.cm-variable-2 {
+  color: #1a1a1a;
+}
+.cm-s-ipython span.cm-variable-3 {
+  color: #333333;
+}
+.cm-s-ipython span.cm-comment {
+  color: #408080;
+  font-style: italic;
+}
+.cm-s-ipython span.cm-string {
+  color: #BA2121;
+}
+.cm-s-ipython span.cm-string-2 {
+  color: #f50;
+}
+.cm-s-ipython span.cm-meta {
+  color: #AA22FF;
+}
+.cm-s-ipython span.cm-qualifier {
+  color: #555;
+}
+.cm-s-ipython span.cm-builtin {
+  color: #008000;
+}
+.cm-s-ipython span.cm-bracket {
+  color: #997;
+}
+.cm-s-ipython span.cm-tag {
+  color: #170;
+}
+.cm-s-ipython span.cm-attribute {
+  color: #00c;
+}
+.cm-s-ipython span.cm-header {
+  color: blue;
+}
+.cm-s-ipython span.cm-quote {
+  color: #090;
+}
+.cm-s-ipython span.cm-link {
+  color: #00c;
+}
+.cm-s-ipython span.cm-error {
+  color: #f00;
+}
+.cm-s-ipython span.cm-tab {
+  background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAMCAYAAAAkuj5RAAAAAXNSR0IArs4c6QAAAGFJREFUSMft1LsRQFAQheHPowAKoACx3IgEKtaEHujDjORSgWTH/ZOdnZOcM/sgk/kFFWY0qV8foQwS4MKBCS3qR6ixBJvElOobYAtivseIE120FaowJPN75GMu8j/LfMwNjh4HUpwg4LUAAAAASUVORK5CYII=);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+div.output_wrapper {
+  /* this position must be relative to enable descendents to be absolute within it */
+  position: relative;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  z-index: 1;
+}
+/* class for the output area when it should be height-limited */
+div.output_scroll {
+  /* ideally, this would be max-height, but FF barfs all over that */
+  height: 24em;
+  /* FF needs this *and the wrapper* to specify full width, or it will shrinkwrap */
+  width: 100%;
+  overflow: auto;
+  border-radius: 2px;
+  -webkit-box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+  display: block;
+}
+/* output div while it is collapsed */
+div.output_collapsed {
+  margin: 0px;
+  padding: 0px;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+div.out_prompt_overlay {
+  height: 100%;
+  padding: 0px 0.4em;
+  position: absolute;
+  border-radius: 2px;
+}
+div.out_prompt_overlay:hover {
+  /* use inner shadow to get border that is computed the same on WebKit/FF */
+  -webkit-box-shadow: inset 0 0 1px #000;
+  box-shadow: inset 0 0 1px #000;
+  background: rgba(240, 240, 240, 0.5);
+}
+div.output_prompt {
+  color: #D84315;
+}
+/* This class is the outer container of all output sections. */
+div.output_area {
+  padding: 0px;
+  page-break-inside: avoid;
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+div.output_area .MathJax_Display {
+  text-align: left !important;
+}
+div.output_area 
+div.output_area 
+div.output_area img,
+div.output_area svg {
+  max-width: 100%;
+  height: auto;
+}
+div.output_area img.unconfined,
+div.output_area svg.unconfined {
+  max-width: none;
+}
+/* This is needed to protect the pre formating from global settings such
+   as that of bootstrap */
+.output {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: vertical;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.output_area {
+    /* Old browsers */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-box-align: stretch;
+    display: -moz-box;
+    -moz-box-orient: vertical;
+    -moz-box-align: stretch;
+    display: box;
+    box-orient: vertical;
+    box-align: stretch;
+    /* Modern browsers */
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+div.output_area pre {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+  color: black;
+  background-color: transparent;
+  border-radius: 0;
+}
+/* This class is for the output subarea inside the output_area and after
+   the prompt div. */
+div.output_subarea {
+  overflow-x: auto;
+  padding: 0.4em;
+  /* Old browsers */
+  -webkit-box-flex: 1;
+  -moz-box-flex: 1;
+  box-flex: 1;
+  /* Modern browsers */
+  flex: 1;
+  max-width: calc(100% - 14ex);
+}
+div.output_scroll div.output_subarea {
+  overflow-x: visible;
+}
+/* The rest of the output_* classes are for special styling of the different
+   output types */
+/* all text output has this class: */
+div.output_text {
+  text-align: left;
+  color: #000;
+  /* This has to match that of the the CodeMirror class line-height below */
+  line-height: 1.21429em;
+}
+/* stdout/stderr are 'text' as well as 'stream', but execute_result/error are *not* streams */
+div.output_stderr {
+  background: #fdd;
+  /* very light red background for stderr */
+}
+div.output_latex {
+  text-align: left;
+}
+/* Empty output_javascript divs should have no height */
+div.output_javascript:empty {
+  padding: 0;
+}
+.js-error {
+  color: darkred;
+}
+/* raw_input styles */
+div.raw_input_container {
+  line-height: 1.21429em;
+  padding-top: 5px;
+}
+pre.raw_input_prompt {
+  /* nothing needed here. */
+}
+input.raw_input {
+  font-family: monospace;
+  font-size: inherit;
+  color: inherit;
+  width: auto;
+  /* make sure input baseline aligns with prompt */
+  vertical-align: baseline;
+  /* padding + margin = 0.5em between prompt and cursor */
+  padding: 0em 0.25em;
+  margin: 0em 0.25em;
+}
+input.raw_input:focus {
+  box-shadow: none;
+}
+p.p-space {
+  margin-bottom: 10px;
+}
+div.output_unrecognized {
+  padding: 5px;
+  font-weight: bold;
+  color: red;
+}
+div.output_unrecognized a {
+  color: inherit;
+  text-decoration: none;
+}
+div.output_unrecognized a:hover {
+  color: inherit;
+  text-decoration: none;
+}
+.rendered_html {
+  color: #000;
+  /* any extras will just be numbers: */
+}
+
+
+
+.rendered_html :link {
+  text-decoration: underline;
+}
+.rendered_html :visited {
+  text-decoration: underline;
+}
+
+
+
+
+
+
+.rendered_html h1:first-child {
+  margin-top: 0.538em;
+}
+.rendered_html h2:first-child {
+  margin-top: 0.636em;
+}
+.rendered_html h3:first-child {
+  margin-top: 0.777em;
+}
+.rendered_html h4:first-child {
+  margin-top: 1em;
+}
+.rendered_html h5:first-child {
+  margin-top: 1em;
+}
+.rendered_html h6:first-child {
+  margin-top: 1em;
+}
+
+
+
+
+
+
+
+
+.rendered_html * + ul {
+  margin-top: 1em;
+}
+.rendered_html * + ol {
+  margin-top: 1em;
+}
+
+
+.rendered_html pre,
+
+
+
+.rendered_html tr,
+.rendered_html th,
+
+.rendered_html td,
+
+
+.rendered_html * + table {
+  margin-top: 1em;
+}
+
+.rendered_html * + p {
+  margin-top: 1em;
+}
+
+.rendered_html * + img {
+  margin-top: 1em;
+}
+.rendered_html img,
+
+.rendered_html img.unconfined,
+
+div.text_cell {
+  /* Old browsers */
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-align: stretch;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-align: stretch;
+  display: box;
+  box-orient: horizontal;
+  box-align: stretch;
+  /* Modern browsers */
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+}
+@media (max-width: 540px) {
+  div.text_cell &gt; div.prompt {
+    display: none;
+  }
+}
+div.text_cell_render {
+  /*font-family: "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;*/
+  outline: none;
+  resize: none;
+  width: inherit;
+  border-style: none;
+  padding: 0.5em 0.5em 0.5em 0.4em;
+  color: #000;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+}
+a.anchor-link:link {
+  text-decoration: none;
+  padding: 0px 20px;
+  visibility: hidden;
+}
+h1:hover .anchor-link,
+h2:hover .anchor-link,
+h3:hover .anchor-link,
+h4:hover .anchor-link,
+h5:hover .anchor-link,
+h6:hover .anchor-link {
+  visibility: visible;
+}
+.text_cell.rendered .input_area {
+  display: none;
+}
+.text_cell.rendered 
+.text_cell.unrendered .text_cell_render {
+  display: none;
+}
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.cm-header-6 {
+  font-weight: bold;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.cm-header-1 {
+  font-size: 185.7%;
+}
+.cm-header-2 {
+  font-size: 157.1%;
+}
+.cm-header-3 {
+  font-size: 128.6%;
+}
+.cm-header-4 {
+  font-size: 110%;
+}
+.cm-header-5 {
+  font-size: 100%;
+  font-style: italic;
+}
+.cm-header-6 {
+  font-size: 100%;
+  font-style: italic;
+}
+&lt;/style&gt;
+&lt;style type="text/css"&gt;.highlight .hll { background-color: #ffffcc }
+.highlight  { background: #f8f8f8; }
+.highlight .c { color: #408080; font-style: italic } /* Comment */
+.highlight .err { border: 1px solid #FF0000 } /* Error */
+.highlight .k { color: #008000; font-weight: bold } /* Keyword */
+.highlight .o { color: #666666 } /* Operator */
+.highlight .ch { color: #408080; font-style: italic } /* Comment.Hashbang */
+.highlight .cm { color: #408080; font-style: italic } /* Comment.Multiline */
+.highlight .cp { color: #BC7A00 } /* Comment.Preproc */
+.highlight .cpf { color: #408080; font-style: italic } /* Comment.PreprocFile */
+.highlight .c1 { color: #408080; font-style: italic } /* Comment.Single */
+.highlight .cs { color: #408080; font-style: italic } /* Comment.Special */
+.highlight .gd { color: #A00000 } /* Generic.Deleted */
+.highlight .ge { font-style: italic } /* Generic.Emph */
+.highlight .gr { color: #FF0000 } /* Generic.Error */
+.highlight .gh { color: #000080; font-weight: bold } /* Generic.Heading */
+.highlight .gi { color: #00A000 } /* Generic.Inserted */
+.highlight .go { color: #888888 } /* Generic.Output */
+.highlight .gp { color: #000080; font-weight: bold } /* Generic.Prompt */
+.highlight .gs { font-weight: bold } /* Generic.Strong */
+.highlight .gu { color: #800080; font-weight: bold } /* Generic.Subheading */
+.highlight .gt { color: #0044DD } /* Generic.Traceback */
+.highlight .kc { color: #008000; font-weight: bold } /* Keyword.Constant */
+.highlight .kd { color: #008000; font-weight: bold } /* Keyword.Declaration */
+.highlight .kn { color: #008000; font-weight: bold } /* Keyword.Namespace */
+.highlight .kp { color: #008000 } /* Keyword.Pseudo */
+.highlight .kr { color: #008000; font-weight: bold } /* Keyword.Reserved */
+.highlight .kt { color: #B00040 } /* Keyword.Type */
+.highlight .m { color: #666666 } /* Literal.Number */
+.highlight .s { color: #BA2121 } /* Literal.String */
+.highlight .na { color: #7D9029 } /* Name.Attribute */
+.highlight .nb { color: #008000 } /* Name.Builtin */
+.highlight .nc { color: #0000FF; font-weight: bold } /* Name.Class */
+.highlight .no { color: #880000 } /* Name.Constant */
+.highlight .nd { color: #AA22FF } /* Name.Decorator */
+.highlight .ni { color: #999999; font-weight: bold } /* Name.Entity */
+.highlight .ne { color: #D2413A; font-weight: bold } /* Name.Exception */
+.highlight .nf { color: #0000FF } /* Name.Function */
+.highlight .nl { color: #A0A000 } /* Name.Label */
+.highlight .nn { color: #0000FF; font-weight: bold } /* Name.Namespace */
+.highlight .nt { color: #008000; font-weight: bold } /* Name.Tag */
+.highlight .nv { color: #19177C } /* Name.Variable */
+.highlight .ow { color: #AA22FF; font-weight: bold } /* Operator.Word */
+.highlight .w { color: #bbbbbb } /* Text.Whitespace */
+.highlight .mb { color: #666666 } /* Literal.Number.Bin */
+.highlight .mf { color: #666666 } /* Literal.Number.Float */
+.highlight .mh { color: #666666 } /* Literal.Number.Hex */
+.highlight .mi { color: #666666 } /* Literal.Number.Integer */
+.highlight .mo { color: #666666 } /* Literal.Number.Oct */
+.highlight .sb { color: #BA2121 } /* Literal.String.Backtick */
+.highlight .sc { color: #BA2121 } /* Literal.String.Char */
+.highlight .sd { color: #BA2121; font-style: italic } /* Literal.String.Doc */
+.highlight .s2 { color: #BA2121 } /* Literal.String.Double */
+.highlight .se { color: #BB6622; font-weight: bold } /* Literal.String.Escape */
+.highlight .sh { color: #BA2121 } /* Literal.String.Heredoc */
+.highlight .si { color: #BB6688; font-weight: bold } /* Literal.String.Interpol */
+.highlight .sx { color: #008000 } /* Literal.String.Other */
+.highlight .sr { color: #BB6688 } /* Literal.String.Regex */
+.highlight .s1 { color: #BA2121 } /* Literal.String.Single */
+.highlight .ss { color: #19177C } /* Literal.String.Symbol */
+.highlight .bp { color: #008000 } /* Name.Builtin.Pseudo */
+.highlight .vc { color: #19177C } /* Name.Variable.Class */
+.highlight .vg { color: #19177C } /* Name.Variable.Global */
+.highlight .vi { color: #19177C } /* Name.Variable.Instance */
+.highlight .il { color: #666666 } /* Literal.Number.Integer.Long */&lt;/style&gt;
+&lt;style type="text/css"&gt;
+/* Temporary definitions which will become obsolete with Notebook release 5.0 */
+.ansi-black-fg { color: #3E424D; }
+.ansi-black-bg { background-color: #3E424D; }
+.ansi-black-intense-fg { color: #282C36; }
+.ansi-black-intense-bg { background-color: #282C36; }
+.ansi-red-fg { color: #E75C58; }
+.ansi-red-bg { background-color: #E75C58; }
+.ansi-red-intense-fg { color: #B22B31; }
+.ansi-red-intense-bg { background-color: #B22B31; }
+.ansi-green-fg { color: #00A250; }
+.ansi-green-bg { background-color: #00A250; }
+.ansi-green-intense-fg { color: #007427; }
+.ansi-green-intense-bg { background-color: #007427; }
+.ansi-yellow-fg { color: #DDB62B; }
+.ansi-yellow-bg { background-color: #DDB62B; }
+.ansi-yellow-intense-fg { color: #B27D12; }
+.ansi-yellow-intense-bg { background-color: #B27D12; }
+.ansi-blue-fg { color: #208FFB; }
+.ansi-blue-bg { background-color: #208FFB; }
+.ansi-blue-intense-fg { color: #0065CA; }
+.ansi-blue-intense-bg { background-color: #0065CA; }
+.ansi-magenta-fg { color: #D160C4; }
+.ansi-magenta-bg { background-color: #D160C4; }
+.ansi-magenta-intense-fg { color: #A03196; }
+.ansi-magenta-intense-bg { background-color: #A03196; }
+.ansi-cyan-fg { color: #60C6C8; }
+.ansi-cyan-bg { background-color: #60C6C8; }
+.ansi-cyan-intense-fg { color: #258F8F; }
+.ansi-cyan-intense-bg { background-color: #258F8F; }
+.ansi-white-fg { color: #C5C1B4; }
+.ansi-white-bg { background-color: #C5C1B4; }
+.ansi-white-intense-fg { color: #A1A6B2; }
+.ansi-white-intense-bg { background-color: #A1A6B2; }
+
+.ansi-bold { font-weight: bold; }
+&lt;/style&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;I have read before that Hoare Partitioning is faster by a constant factor than the Lomuto Partitioning. This will clearly have an important impact on the performance of Quick Sort. Here, I wanted to check that and see if it holds true in practice, and if so, what that constant factor might be. Let's define the two partitioning schemes below:&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [12]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;Lomuto_Partitioning&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&lt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+            &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;Hoare_Partitioning&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;p&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+    &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;p&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;r&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+    &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&lt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;
+        &lt;span class="k"&gt;while&lt;/span&gt; &lt;span class="kc"&gt;True&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;
+            &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;&gt;=&lt;/span&gt; &lt;span class="n"&gt;x&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+                &lt;span class="k"&gt;break&lt;/span&gt;
+        &lt;span class="k"&gt;if&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;&lt;&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;j&lt;/span&gt;&lt;span class="p"&gt;],&lt;/span&gt; &lt;span class="n"&gt;A&lt;/span&gt;&lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="n"&gt;i&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+        &lt;span class="k"&gt;else&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt;
+            &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;j&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Let us quickly test the functions:&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [9]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;8&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;Lomuto_Partitioning&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;l&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;2&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;5&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;4&lt;/span&gt;&lt;span class="p"&gt;]&lt;/span&gt;
+&lt;span class="n"&gt;Hoare_Partitioning&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="nb"&gt;len&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="nb"&gt;print&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;l&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_subarea output_stream output_stdout output_text"&gt;
+&lt;pre&gt;[-1, 3, 2, 1, 0, 4, 5, 8]
+[0, 2, 1, 3, 5, 4]
+&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Now, lets write a test harness to compute the average execution time they both take. Since both algos are $O(n)$, we expect a linear graph.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [43]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;random&lt;/span&gt;&lt;span class="o"&gt;,&lt;/span&gt; &lt;span class="nn"&gt;timeit&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;matplotlib.pyplot&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;plt&lt;/span&gt;
+&lt;span class="o"&gt;%&lt;/span&gt;&lt;span class="k"&gt;matplotlib&lt;/span&gt; inline
+
+&lt;span class="k"&gt;def&lt;/span&gt; &lt;span class="nf"&gt;getTimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;algo&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;max_n&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+    &lt;span class="n"&gt;ret&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;[]&lt;/span&gt;
+    &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;max_n&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+        &lt;span class="n"&gt;acc&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;
+        &lt;span class="k"&gt;for&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="ow"&gt;in&lt;/span&gt; &lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;):&lt;/span&gt;
+            &lt;span class="n"&gt;samples&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;random&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;sample&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1000000&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+            &lt;span class="n"&gt;t&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;timeit&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;Timer&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="k"&gt;lambda&lt;/span&gt;&lt;span class="p"&gt;:&lt;/span&gt; &lt;span class="n"&gt;algo&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;samples&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;i&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+            &lt;span class="n"&gt;acc&lt;/span&gt; &lt;span class="o"&gt;+=&lt;/span&gt; &lt;span class="n"&gt;t&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;timeit&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;number&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;&lt;span class="mi"&gt;10&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;ret&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;append&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;acc&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;k&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+    &lt;span class="k"&gt;return&lt;/span&gt; &lt;span class="n"&gt;ret&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [46]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;1000&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;repeats&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;10&lt;/span&gt;
+&lt;span class="n"&gt;ltimes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getTimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Lomuto_Partitioning&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repeats&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;htimes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getTimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Hoare_Partitioning&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repeats&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ltimes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'b'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;htimes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'r'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[46]:&lt;/div&gt;
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;[&lt;matplotlib.lines.line2d at 0x7f97ff15c0b8&gt;]&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_png output_subarea "&gt;
+&lt;img src="data:image/png;base64,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
+AAAASUVORK5CYII=
+"&gt;
+&lt;/img&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;I guess that is the result we were looking for. Clearly, the Hoare Partitioning scheme is significantly faster than Lomuto Partitioning, even if the former is somewhat more spiky than the latter. Let us now try to evaluate the ratio by fitting in a linear regression. Assuming that $T(0) = 0$ for both methods, we can model the times as:&lt;/p&gt;
+$$T_{Lomuto}(n) = \alpha n$$$$T_{Hoare}(n) = \beta n$$&lt;p&gt;As such, 
+$$\frac{T_{Lomuto}}{T_{Hoare}} = \tau = \frac{\alpha}{\beta}$$&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [50]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="kn"&gt;from&lt;/span&gt; &lt;span class="nn"&gt;scipy&lt;/span&gt; &lt;span class="k"&gt;import&lt;/span&gt; &lt;span class="n"&gt;stats&lt;/span&gt;
+&lt;span class="kn"&gt;import&lt;/span&gt; &lt;span class="nn"&gt;numpy&lt;/span&gt; &lt;span class="k"&gt;as&lt;/span&gt; &lt;span class="nn"&gt;np&lt;/span&gt;
+
+&lt;span class="n"&gt;stats&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;linregress&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;ltimes&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;stats&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;linregress&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="nb"&gt;range&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt; &lt;span class="n"&gt;htimes&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[50]:&lt;/div&gt;
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;(LinregressResult(slope=4.4946443664156631e-06, intercept=-1.1397909716478159e-06, rvalue=0.99920565110183091, pvalue=0.0, stderr=5.6742643712434564e-09),
+ LinregressResult(slope=1.840124071238625e-06, intercept=-4.5354932719284674e-05, rvalue=0.9770346083283814, pvalue=0.0, stderr=1.2703282394895487e-08))&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;Well, clearly Lomuto is more &lt;em&gt;linear&lt;/em&gt;. The intercept implies that Hoare partitioning is faster even at $N=0$ which is amusing. We can see that:&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [53]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;α&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;β&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mf"&gt;4.4946443664156631e-06&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="mf"&gt;1.840124071238625e-06&lt;/span&gt;
+&lt;span class="n"&gt;τ&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;α&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;β&lt;/span&gt;
+&lt;span class="n"&gt;τ&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;τ&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="mf"&gt;100.0&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[53]:&lt;/div&gt;
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;(2.442576800481843, 59.05962916692194)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;So Lomuto Partitioning is 2.44 times slower than Hoare Partitioning and the latter is a 59% improvement on the performance of the former. A quick look at the graph for small values of N:&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [54]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="n"&gt;N&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;50&lt;/span&gt;&lt;span class="p"&gt;;&lt;/span&gt; &lt;span class="n"&gt;repeats&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;
+&lt;span class="n"&gt;ltimes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getTimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Lomuto_Partitioning&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repeats&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;htimes&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="n"&gt;getTimes&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;Hoare_Partitioning&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;N&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="n"&gt;repeats&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;ltimes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'b'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="n"&gt;plt&lt;/span&gt;&lt;span class="o"&gt;.&lt;/span&gt;&lt;span class="n"&gt;plot&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;htimes&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt; &lt;span class="s1"&gt;'r'&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[54]:&lt;/div&gt;
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;[&lt;matplotlib.lines.line2d at 0x7f97f8a85e48&gt;]&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt"&gt;&lt;/div&gt;
+&lt;div class="output_png output_subarea "&gt;
+&lt;img src="data:image/png;base64,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
+6iiQGsrmAAAAAElFTkSuQmCC
+"&gt;
+&lt;/img&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;For a brilliant theoretical exposition on the differences in speeds of the two algorithms, please refer to Sebastian Wild's &lt;a href="http://cs.stackexchange.com/a/11550"&gt;StackExchange answer&lt;/a&gt;. To summarize, the comparisons in case of both the algorithms are the same, however the number of swaps differ. It is expected that for swaps ($\sigma$):&lt;/p&gt;
+$$\sigma_{Lomuto} = \frac{n}{2} - \frac{1}{2}$$$$\sigma_{hoare} = \frac{n}{6} - \frac{1}{3}$$&lt;p&gt;There is a gap here. Going by the above formulae, Hoare Partitioning should have been about 3 times faster, if one goes by the number of swaps alone. It is a bit slower than that in practice. Clearly, the amount being spent on swaps is a fraction (granted, large) of the amount of time being spent on the sorting.&lt;/p&gt;
+&lt;p&gt;Let us assume that beyond the swaps, there is a constant overhead $\lambda$ in both algorithms. Let $\chi$ be $2.44$ as discovered empirically earlier. Hence,&lt;/p&gt;
+$$\frac{\sigma_{Lomuto}}{\sigma_{Hoare}} = 3 \land \frac{\sigma_{Lomuto} + \lambda}{\sigma_{Hoare} + \lambda} = \chi$$$$\Rightarrow \frac{3\sigma_{Hoare} + \lambda}{\sigma_{Hoare} + \lambda} = \chi$$$$\Rightarrow \lambda = \frac{3 - \chi}{\chi - 1}\sigma_{Hoare}$$&lt;p&gt;The percentage of time spent swapping in Lomuto Partitioning is:
+$$100\frac{\sigma_{Lomuto}}{\lambda + \sigma_{Lomuto}}$$ 
+Similarly, for Hoare Partitioning,
+$$100\frac{\sigma_{Hoare}}{\lambda + \sigma_{hoare}}$$&lt;/p&gt;
+&lt;p&gt;These work out to be:&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing code_cell rendered"&gt;
+&lt;div class="input"&gt;
+&lt;div class="prompt input_prompt"&gt;In [58]:&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="input_area"&gt;
+&lt;div class=" highlight hl-ipython3"&gt;&lt;pre&gt;&lt;span&gt;&lt;/span&gt;&lt;span class="c1"&gt;# Let sigma_hoare be 1. Hence, sigma_lomuto = 3, and &lt;/span&gt;
+&lt;span class="n"&gt;lmbda&lt;/span&gt; &lt;span class="o"&gt;=&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mf"&gt;2.44&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;2.44&lt;/span&gt; &lt;span class="o"&gt;-&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lmbda&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="mi"&gt;3&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt; &lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;lmbda&lt;/span&gt; &lt;span class="o"&gt;+&lt;/span&gt; &lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;))&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="output_wrapper"&gt;
+&lt;div class="output"&gt;
+&lt;div class="output_area"&gt;&lt;div class="prompt output_prompt"&gt;Out[58]:&lt;/div&gt;
+&lt;div class="output_text output_subarea output_execute_result"&gt;
+&lt;pre&gt;(88.52459016393442, 72.0)&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="cell border-box-sizing text_cell rendered"&gt;
+&lt;div class="prompt input_prompt"&gt;
+&lt;/div&gt;
+&lt;div class="inner_cell"&gt;
+&lt;div class="text_cell_render border-box-sizing rendered_html"&gt;
+&lt;p&gt;As expected, Lomuto Partitioning is spending more time in swapping elements in comparison to Hoare Partitioning.&lt;/p&gt;
+&lt;p&gt;These are partitioning schemes involving only a single pivot. Faster variants involving two pivots have been suggested by Sedgewick and Yaroslavskiy. Sebastian's paper &lt;a href="https://kluedo.ub.uni-kl.de/frontdoor/index/index/docId/3463"&gt;here&lt;/a&gt; is a very interesting read and provides a very good perspective on the performance of the various partitioning schemes.&lt;/p&gt;
+&lt;p&gt;As an aside, the default sort used in python and java is &lt;a href="http://svn.python.org/projects/python/trunk/Objects/listsort.txt"&gt;TimSort&lt;/a&gt;, which is a mergesort variant.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;script type="text/javascript"&gt;if (!document.getElementById('mathjaxscript_pelican_#%@#$@#')) {
+    var mathjaxscript = document.createElement('script');
+    mathjaxscript.id = 'mathjaxscript_pelican_#%@#$@#';
+    mathjaxscript.type = 'text/javascript';
+    mathjaxscript.src = '//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML';
+    mathjaxscript[(window.opera ? "innerHTML" : "text")] =
+        "MathJax.Hub.Config({" +
+        "    config: ['MMLorHTML.js']," +
+        "    TeX: { extensions: ['AMSmath.js','AMSsymbols.js','noErrors.js','noUndefined.js'], equationNumbers: { autoNumber: 'AMS' } }," +
+        "    jax: ['input/TeX','input/MathML','output/HTML-CSS']," +
+        "    extensions: ['tex2jax.js','mml2jax.js','MathMenu.js','MathZoom.js']," +
+        "    displayAlign: 'center'," +
+        "    displayIndent: '0em'," +
+        "    showMathMenu: true," +
+        "    tex2jax: { " +
+        "        inlineMath: [ ['$','$'] ], " +
+        "        displayMath: [ ['$$','$$'] ]," +
+        "        processEscapes: true," +
+        "        preview: 'TeX'," +
+        "    }, " +
+        "    'HTML-CSS': { " +
+        "        styles: { '.MathJax_Display, .MathJax .mo, .MathJax .mi, .MathJax .mn': {color: 'black ! important'} }" +
+        "    } " +
+        "}); ";
+    (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
+}
+&lt;/script&gt;
+</summary></entry><entry><title>Hoare Partitioning and Pivot Selection</title><link href="http://rohitja.in/qsort-hoare-partitioning.html" rel="alternate"></link><published>2015-09-06T20:00:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2015-09-06:qsort-hoare-partitioning.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
