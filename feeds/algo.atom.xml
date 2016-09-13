@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom"><title>rohitja.in</title><link href="http://rohitja.in/" rel="alternate"></link><link href="http://rohitja.in/feeds/algo.atom.xml" rel="self"></link><id>http://rohitja.in/</id><updated>2016-09-01T20:00:00+05:30</updated><entry><title>A comparison of Lomuto and Hoare Partitioning Schemes</title><link href="http://rohitja.in/lomuto-hoare-partitioning.html" rel="alternate"></link><published>2016-09-01T20:00:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2016-09-01:lomuto-hoare-partitioning.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+<feed xmlns="http://www.w3.org/2005/Atom"><title>rohitja.in</title><link href="http://rohitja.in/" rel="alternate"></link><link href="http://rohitja.in/feeds/algo.atom.xml" rel="self"></link><id>http://rohitja.in/</id><updated>2016-09-01T20:00:00+05:30</updated><entry><title>A comparison of Lomuto and Hoare Partitioning Schemes</title><link href="http://rohitja.in/lomuto-hoare-partitioning.html" rel="alternate"></link><published>2016-09-01T20:00:00+05:30</published><updated>2016-09-01T20:00:00+05:30</updated><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2016-09-01:lomuto-hoare-partitioning.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
@@ -1774,7 +1774,7 @@ $$\frac{6k\pi}{k} = \frac{28}{72}$$
     (document.body || document.getElementsByTagName('head')[0]).appendChild(mathjaxscript);
 }
 &lt;/script&gt;
-</summary></entry><entry><title>Hoare Partitioning and Pivot Selection</title><link href="http://rohitja.in/qsort-hoare-partitioning.html" rel="alternate"></link><published>2015-09-06T20:00:00+05:30</published><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2015-09-06:qsort-hoare-partitioning.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
+</summary></entry><entry><title>Hoare Partitioning and Pivot Selection</title><link href="http://rohitja.in/qsort-hoare-partitioning.html" rel="alternate"></link><published>2015-09-06T20:00:00+05:30</published><updated>2015-09-06T20:00:00+05:30</updated><author><name>Rohit Jain</name></author><id>tag:rohitja.in,2015-09-06:qsort-hoare-partitioning.html</id><summary type="html">&lt;style type="text/css"&gt;/*!
 *
 * IPython notebook
 *
