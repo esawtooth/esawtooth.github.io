@@ -22,11 +22,11 @@
 
 
 <meta name="author" content="Rohit Jain" />
-<meta name="description" content="While playing scales over and over again on the Guitar, I have found some very interesting patterns in them that I thought would be worth summarizing here. Particularly, I am interested in verifying these properties through computation, and ideally proving them as well after achieving a reasonable formalism. The Framework¶ Before may we begin describing the aforestated properties with any degree of precision, let us quickly establish the basic definitions we shall be working with." />
+<meta name="description" content="While playing scales over and over on the Guitar, I have found some very interesting patterns in them that I thought would be worth summarizing here. Particularly, I am interested in verifying these properties through computation, and wherever trivial, proving them as well once we have achieved a reasonable formalism." />
 <meta name="keywords" content="">
 <meta property="og:site_name" content="rohitja.in"/>
 <meta property="og:title" content="Understanding Modes of the Major Heptatonic"/>
-<meta property="og:description" content="While playing scales over and over again on the Guitar, I have found some very interesting patterns in them that I thought would be worth summarizing here. Particularly, I am interested in verifying these properties through computation, and ideally proving them as well after achieving a reasonable formalism. The Framework¶ Before may we begin describing the aforestated properties with any degree of precision, let us quickly establish the basic definitions we shall be working with."/>
+<meta property="og:description" content="While playing scales over and over on the Guitar, I have found some very interesting patterns in them that I thought would be worth summarizing here. Particularly, I am interested in verifying these properties through computation, and wherever trivial, proving them as well once we have achieved a reasonable formalism."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="http://rohitja.in/music-heptatonic-modes.html"/>
 <meta property="og:type" content="article"/>
@@ -1227,22 +1227,22 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>While playing scales over and over again on the Guitar, I have found some very interesting patterns in them that I thought would be worth summarizing here. Particularly, I am interested in verifying these properties through computation, and ideally proving them as well after achieving a reasonable formalism.</p>
+<p>While playing scales over and over on the Guitar, I have found some very interesting patterns in them that I thought would be worth summarizing here. Particularly, I am interested in verifying these properties through computation, and wherever trivial, proving them as well once we have achieved a reasonable formalism.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Framework">The Framework<a class="anchor-link" href="#The-Framework">¶</a></h2>
+<h3 id="The-Framework">The Framework<a class="anchor-link" href="#The-Framework">¶</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Before may we begin describing the aforestated properties with any degree of precision, let us quickly establish the basic definitions we shall be working with.</p>
-<p>Let us define notes to be named members of the group $({Z}^{12}, +)$. We can formulate them in code as below. The specification defined below is admittedly somewhat fragile from a tuning theory perspective, but for the purposes of the scoped discussion we will be undertaking here, it is quite acceptable.</p>
+<p>Before we can begin describing these modal properties with any degree of precision, let us quickly establish the basic definitions we shall be working with. While in many cases, these definitions may not align completely with established formal definitions, I feel we can use them to start a useful discussion at this time.</p>
+<p>Let us consider notes to be named members of the cyclic group $({Z}_{12}, +)$. We can formulate them in code as per the block below. The code specified below is admittedly somewhat fragile from a tuning theory perspective, but for the purposes of the scoped discussion we will be undertaking here, it is quite acceptable. We are not interested in discussing xenharmonics/microtonalities in this article.</p>
 </div>
 </div>
 </div>
@@ -1275,12 +1275,12 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let us further define functions to obtain the scales for a given interval pattern and key, and to obtain the interval pattern given a particular scale. We shall neglect to state the formal definitions of these terms but shall proceed with the more commonly understood definition as long as said definition may non-exhaustively enjoy the following properties:</p>
+<p>Let us further define functions to obtain the scales for a given interval pattern and key, and to obtain the interval pattern given a particular scale. We shall neglect to state the formal definitions of these terms but shall proceed with the more commonly understood definition as long as we understand the following properties to hold:</p>
 <ol>
 <li>A scale is a sequence of notes</li>
 <li>The first note in the scale is considered to be the key</li>
 <li>The differences between the notes is considered to be the interval pattern for the scale.<ol>
-<li>Corollary: The scale may be regenerated by providing a key and the interval pattern.</li>
+<li><strong>Corollary</strong>: The scale may be regenerated by providing a key and the interval pattern.</li>
 <li>We shall consider two scales to be <em>equivalent modulo key</em> if they share the same interval pattern.</li>
 </ol>
 </li>
@@ -1327,7 +1327,7 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Modes-of-the-Major-Heptatonic">Modes of the Major Heptatonic<a class="anchor-link" href="#Modes-of-the-Major-Heptatonic">¶</a></h2>
+<h3 id="Modes-of-the-Major-Heptatonic">Modes of the Major Heptatonic<a class="anchor-link" href="#Modes-of-the-Major-Heptatonic">¶</a></h3>
 </div>
 </div>
 </div>
@@ -1549,14 +1549,14 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>As should be apparent by now from the preceeding discussion and the dictionary above, the Phrygian mode for the key of E, is the same set of nodes as the Ionian Mode for the key of C.</p>
+<p>As should be apparent by now from the preceeding discussion and the dictionary above, the Phrygian mode under the key of E consists of the same set of notes as the Ionian Mode under the key of C.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="The-Pentatonics">The Pentatonics<a class="anchor-link" href="#The-Pentatonics">¶</a></h2>
+<h3 id="The-Pentatonics">The Pentatonics<a class="anchor-link" href="#The-Pentatonics">¶</a></h3>
 </div>
 </div>
 </div>
@@ -1579,27 +1579,6 @@ h6:hover .anchor-link {
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In [144]:</div>
-<div class="inner_cell">
-<div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span><span class="n">get_mode</span><span class="p">(</span><span class="n">major_pentatonic_intervals</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-<div class="output_wrapper">
-<div class="output">
-<div class="output_area">
-<div class="prompt output_prompt">Out[144]:</div>
-<div class="output_text output_subarea output_execute_result">
-<pre>[0, 2, 2, 3, 2]</pre>
-</div>
-</div>
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -1609,7 +1588,7 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [138]:</div>
+<div class="prompt input_prompt">In [183]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">get_all_scales</span><span class="p">(</span><span class="n">major_pentatonic_intervals</span><span class="p">)</span>
@@ -1620,7 +1599,7 @@ h6:hover .anchor-link {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[138]:</div>
+<div class="prompt output_prompt">Out[183]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>{'C': ['C', 'D', 'E', 'G', 'A'],
  'C#': ['C#', 'D#', 'F', 'G#', 'A#'],
@@ -1641,7 +1620,7 @@ h6:hover .anchor-link {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [136]:</div>
+<div class="prompt input_prompt">In [184]:</div>
 <div class="inner_cell">
 <div class="input_area">
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">get_all_scales</span><span class="p">(</span><span class="n">minor_pentatonic_intervals</span><span class="p">)</span>
@@ -1652,7 +1631,7 @@ h6:hover .anchor-link {
 <div class="output_wrapper">
 <div class="output">
 <div class="output_area">
-<div class="prompt output_prompt">Out[136]:</div>
+<div class="prompt output_prompt">Out[184]:</div>
 <div class="output_text output_subarea output_execute_result">
 <pre>{'C': ['C', 'D#', 'F', 'G', 'A#'],
  'C#': ['C#', 'E', 'F#', 'G#', 'B'],
@@ -1711,21 +1690,21 @@ h6:hover .anchor-link {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Understanding-the-relationships-between-scales">Understanding the relationships between scales<a class="anchor-link" href="#Understanding-the-relationships-between-scales">¶</a></h2>
+<h3 id="Understanding-the-relationships-between-scales">Understanding the relationships between scales<a class="anchor-link" href="#Understanding-the-relationships-between-scales">¶</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>With the essential framework now developed, we can now get to the main body of this discussion. In the subsequent sections, I will try to formulate and discuss new and interesting properties of the scales we have explored above.</p>
+<p>With a basic framework now developed, we can now get to the main body of this discussion. In the subsequent sections, I will try to formulate and discuss new and interesting properties of the scales we have explored above.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Scale-Intersections">Scale Intersections<a class="anchor-link" href="#Scale-Intersections">¶</a></h3>
+<h4 id="Scale-Intersections">Scale Intersections<a class="anchor-link" href="#Scale-Intersections">¶</a></h4>
 </div>
 </div>
 </div>
@@ -1834,33 +1813,42 @@ lydian & mixolydian:  {'E', 'A', 'C', 'G', 'D'}
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Modes-from-an-alternative-Perspective">Modes from an alternative Perspective<a class="anchor-link" href="#Modes-from-an-alternative-Perspective">¶</a></h3><p>I don't think there should be anything particularly special about the Ionian, from which we generated the rest of the modes. As such, it is fairly natural to consider questions such as which mode of the Aeolian scale is the Ionian? Similarly, which mode is the Lydian of the Phrygian etc.</p>
-<p>These modal scales are all clearly cyclic permutations of each other, and hence modes of each other. Let us see if there are any obvious patterns in there:</p>
+<h4 id="Relative-Minors">Relative Minors<a class="anchor-link" href="#Relative-Minors">¶</a></h4><p>I don't think there should be anything particularly special about the Ionian, from which we generated the rest of the modes. As such, it is fairly natural to consider questions such as which mode of the Aeolian scale is the Ionian? Similarly, which mode is the Lydian of the Phrygian etc.</p>
+<p>These modal scales are all clearly cyclic permutations of each other, and hence modes of each other. I particular I am curious if there are any similarities between Phrygian and Mixolydian, or between Dorian and Lydian.</p>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In [ ]:</div>
+<div class="prompt input_prompt">In [195]:</div>
 <div class="inner_cell">
 <div class="input_area">
-<div class="highlight hl-ipython3"><pre><span></span> 
+<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">modes</span><span class="p">[</span><span class="s1">'aeolian'</span><span class="p">]</span> <span class="o">-</span> <span class="n">modes</span><span class="p">[</span><span class="s1">'ionian'</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">modes</span><span class="p">[</span><span class="s1">'phrygian'</span><span class="p">]</span> <span class="o">-</span> <span class="n">modes</span><span class="p">[</span><span class="s1">'mixolydian'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">7</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">modes</span><span class="p">[</span><span class="s1">'dorian'</span><span class="p">]</span> <span class="o">-</span> <span class="n">modes</span><span class="p">[</span><span class="s1">'lydian'</span><span class="p">]</span> <span class="o">+</span> <span class="mi">7</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
+<div class="output_wrapper">
+<div class="output">
+<div class="output_area">
+<div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>5
+5
+5
+</pre>
+</div>
+</div>
+</div>
+</div>
 </div>
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Relative-Minors">Relative Minors<a class="anchor-link" href="#Relative-Minors">¶</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Another well known property is that the minor and major pentatonic scales are 'relative' to each other and share the same shape on the guitar. The only difference is the root note which can be determined easily by using the relative minor concept.</p>
+<p>The above makes for an interesting insight into the relationships between these scales. Just as Aeolian may be considered as the relative minor of the Ionian, in a similar manner, we can consider Phrygian to be the relative minor of the Mixolydian. Similarly, Dorian is a relative minor of the Lydian.</p>
+<p>A well known property is that the minor and major pentatonic scales are 'relative' to each other and share the same shape on the guitar. The only difference is the root note which can be determined easily by using the relative minor concept.</p>
 <p>This understanding makes these modes almost trivial to play on the guitar, since once you have the hang of the pentatonic scales, you just needs to add the right couple of notes in all their locations on the fretboard to the basic pentatonic structure, and immediately gain the ability to play every major and minor mode on the guitar in any key.</p>
 </div>
 </div>
@@ -1868,7 +1856,7 @@ lydian & mixolydian:  {'E', 'A', 'C', 'G', 'D'}
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Another interesting property of note is that you just really need to learn three modes, and the others are all the relative minors of the other. For instance, it is common knowledge that the minor scale (Aeolian mode) uses the same notes as the major scale (Ionian mode) in another key which is the relative minor of the major note. Similarly, it is an interesting observation that the Phrygian mode uses the same notes as the Mixolydian mode, just in another root which is the relative minor of the corresponding major note. A similar story is exists for the Dorian and the Lydian. Thus, all one needs to do is learn the notes on one of these groups of two, and that makes it trivial to derive all the notes on the guitar for the other modes. In my case, I first learnt the minor and major pentatonic modes. Using the minor pentatonic as a backbone, I learnt the Phrygian and Dorian. Those patterns were the same as the ones for Mixolydian and Lydian respectively, as long as I used the correct key to play them in.</p>
+<p>The above code snippet reveals another hint that the Phrygian mode uses the same notes as the Mixolydian mode, just in another root which is the relative minor of the corresponding major note. A similar story is exists for the Dorian and the Lydian. Thus, all one needs to do is learn the notes on one of these groups of two, and that makes it trivial to derive all the notes on the guitar for the other modes. In my case, I first learnt the minor and major pentatonic modes. Using the minor pentatonic as a backbone, I learnt the Phrygian and Dorian. Those patterns were the same as the ones for Mixolydian and Lydian respectively, as long as I used the correct key to play them in.</p>
 </div>
 </div>
 </div>
